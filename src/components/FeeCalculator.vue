@@ -9,10 +9,13 @@
 
       <el-form labelPosition="top">
         <el-form-item label="Amount">
-          <el-input v-model="amount" type="number"></el-input>
+          <el-input v-model="amount" type="number" pattern="[0-9]*"></el-input>
         </el-form-item>
 
-        <el-form-item label="Select operation">
+        <el-form-item 
+          label="Select operation" 
+          class="v-fee-calculator__buttons"
+        >
           <el-button
             v-for="{ label, disabled, value } in availableOperations"
             :key="label"
@@ -192,9 +195,20 @@ export default {
       font-size: 24px;
       color: var(--el-color-primary);
     }
+
     .el-form-item__content {
       display: flex;
       grid-gap: 10px;
+    }
+  }
+
+  &__buttons {
+    flex-wrap: wrap;
+    display: flex;
+    grid-gap: 10px;
+
+    .el-button {
+      margin: 0 !important;
     }
   }
 
