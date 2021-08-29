@@ -157,10 +157,7 @@ export default {
       return operation
     }))
 
-    const formatCurrency = amount => {
-      return new Intl.NumberFormat('en-us', { style: 'currency', currency: 'USD' }).format(amount)
-    }
-
+    const formatCurrency = amount => new Intl.NumberFormat('en-us', { style: 'currency', currency: 'USD' }).format(amount)
     const handleOperationSelect = value => state.operationList.push(allOperationsByKey.value[value])
     const handleOperationRemove = value => remove(state.operationList, operation => operation.value === value)
 
