@@ -1,0 +1,46 @@
+$text-xxxxl: 60px;
+$text-xxxl: 50px;
+$text-xxl: 30px;
+$text-xl: 22px;
+$text-lg: 18px;
+$text-md: 14px;
+$text-sm: 13px;
+
+h1 {
+  font-size: $text-xxxl;
+}
+
+h2 {
+  font-size: $text-xxl;
+}
+
+h3 {
+  font-size: $text-xl;
+}
+
+h4 {
+  font-size: $text-lg;
+}
+
+h1,
+h2,
+h3,
+h4,
+strong {
+  font-weight: bold;
+}
+
+p {
+  font-size: $text-md;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
