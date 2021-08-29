@@ -8,27 +8,28 @@
       </template>
 
       <el-form labelPosition="top">
-        <el-form-item label="Amount">
-          <el-input v-model="amount" type="number" pattern="[0-9]*"></el-input>
+        <el-form-item label="Starting amount">
+          <el-input v-model="amount" type="number" pattern="[0-9]*">
+            <template #prepend>$</template>
+          </el-input>
         </el-form-item>
 
         <el-form-item 
           label="Select operation" 
           class="v-fee-calculator__buttons"
         >
-          <el-button
-            v-for="{ label, disabled, value } in availableOperations"
-            :key="label"
-            closable
-            :disabled="disabled"
-            @click="handleOperationSelect(value)"
-          >
-            {{ label }}
-          </el-button>
+            <el-button
+              v-for="{ label, disabled, value } in availableOperations"
+              :key="label"
+              closable
+              :disabled="disabled"
+              @click="handleOperationSelect(value)"
+            >
+              {{ label }}
+            </el-button>
         </el-form-item>
 
         <el-form-item class="v-fee-calculator__tag-list">
-          <transition-group name="el-zoom-in-top">
             <div
               class="v-fee-calculator__tag-item"
               v-for="({ label, value }, index) in operationList"
@@ -44,7 +45,6 @@
 
               <i class="el-icon-circle-plus-outline" v-if="index < operationList.length - 1"></i>
             </div>
-          </transition-group>
 
         </el-form-item>
       </el-form>
@@ -77,7 +77,6 @@
 
         <el-descriptions-item>
           <template #label>
-            <i class="el-icon-money"></i>
             <strong> Amount after tax</strong>
           </template>
           {{ formatCurrency(calculatedFees.amountAfterFees) }}
@@ -91,6 +90,7 @@
 import { computed, reactive, toRefs } from 'vue'
 import keyBy from 'lodash/keyBy'
 import remove from 'lodash/remove'
+import isEmpty from 'lodash/isEmpty'
 
 export default {
   name: 'FeeCalculator',
@@ -150,6 +150,7 @@ export default {
 
     const calculatedFees = computed(() => calculateFees(state))
     const allOperationsByKey = computed(() => keyBy(state.allOperations, 'value'))
+    const operationListByKey = computed(() => keyBy(state.operationList, 'value'))
     const selectedOperation = computed(() => state.operationList[state.operationList.length - 1])
     const availableOperations = computed(() => state.allOperations.map(operation => {
       if (!selectedOperation.value) {
@@ -158,6 +159,9 @@ export default {
         operation.disabled = true
       }
       return operation
+    }).filter(operation => {
+      if(isEmpty(operationListByKey.value)) return true
+      return !operationListByKey.value[operation.value]
     }))
 
     const formatCurrency = amount => new Intl.NumberFormat('en-us', { style: 'currency', currency: 'USD' }).format(amount)
@@ -203,12 +207,14 @@ export default {
   }
 
   &__buttons {
-    flex-wrap: wrap;
-    display: flex;
-    grid-gap: 10px;
+    .el-form-item__content {
+      margin: 0 -5px;
+      flex-wrap: wrap;
+      display: flex;
+    }
 
     .el-button {
-      margin: 0 !important;
+      margin: 5px;
     }
   }
 
