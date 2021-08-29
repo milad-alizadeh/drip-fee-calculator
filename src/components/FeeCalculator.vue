@@ -1,14 +1,9 @@
 <template>
   <div class="v-fee-calculator">
     <el-card class="v-fee-calculator__card">
-      <template #header>
-        <h2 class="v-fee-calculator__card-header">
-          Input
-        </h2>
-      </template>
-
       <el-form labelPosition="top">
-        <el-form-item label="Starting amount">
+        
+        <el-form-item label="Enter starting amount">
           <el-input v-model="amount" type="number" pattern="[0-9]*">
             <template #prepend>$</template>
           </el-input>
@@ -30,34 +25,38 @@
         </el-form-item>
 
         <el-form-item class="v-fee-calculator__tag-list">
-            <div
-              class="v-fee-calculator__tag-item"
-              v-for="({ label, value }, index) in operationList"
-              :key="label"
+          <div
+            class="v-fee-calculator__tag-item"
+            v-for="({ label, value }, index) in operationList"
+            :key="label"
+          >
+            <el-tag
+              effect="dark"
+              closable
+              type="primary"
+              @close="handleOperationRemove(value)"
             >
-              <el-tag
-                effect="dark"
-                closable
-                @close="handleOperationRemove(value)"
-              >
-                <span>{{ label }} </span>
-              </el-tag>
+              <span>{{ label }} </span>
+            </el-tag>
 
-              <i class="el-icon-circle-plus-outline" v-if="index < operationList.length - 1"></i>
-            </div>
-
+            <i class="el-icon-circle-plus-outline" v-if="index < operationList.length - 1"></i>
+          </div>
         </el-form-item>
       </el-form>
     </el-card>
 
     <el-card class="v-fee-calculator__card">
-      <template #header>
-        <h2 class="v-fee-calculator__card-header">
-          Tax
-        </h2>
+      <template v-if="!selectedOperation || !amount">
+        <div class="v-fee-calculator__card-placeholder">
+          <h4>
+            Please enter an ammount and select an operation to continue
+          </h4>
+        </div>
+
       </template>
 
       <el-descriptions 
+        v-else
         border
         :column="1"
       >
@@ -104,7 +103,7 @@ export default {
   
   setup () {
     const state = reactive({
-      amount: 100,
+      amount: '',
       operationList: [],
       allOperations: [
         {
@@ -155,9 +154,10 @@ export default {
     const availableOperations = computed(() => state.allOperations.map(operation => {
       if (!selectedOperation.value) {
         operation.disabled = false
-      } else if (!selectedOperation.value?.children?.includes(operation.value)) {
-        operation.disabled = true
+        return operation
       }
+      
+      operation.disabled = !selectedOperation.value?.children?.includes(operation.value)
       return operation
     }).filter(operation => {
       if(isEmpty(operationListByKey.value)) return true
@@ -185,10 +185,13 @@ export default {
 .v-fee-calculator {
   display: grid;
   grid-gap: 20px;
-  padding: 20px;
 
   td:first-child {
     width: 200px;
+  }
+
+  .el-form-item__label {
+    line-height: 1;
   }
 
   &__tag-list {
@@ -203,6 +206,15 @@ export default {
     .el-form-item__content {
       display: flex;
       grid-gap: 10px;
+    }
+  }
+
+  &__card {
+    &-placeholder {
+      text-align: center;
+      line-height: 1.4;
+      margin: auto;
+      max-width: 400px;
     }
   }
 
@@ -222,6 +234,10 @@ export default {
     display: flex;
     grid-gap: 10px;
     align-items: center;
+  }
+
+  @media (min-width: 769px) {
+    grid-template-columns: 1fr 1fr;
   }
 }
 </style>
