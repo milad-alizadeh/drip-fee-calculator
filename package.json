@@ -25,7 +25,8 @@
     "sass-loader": "10.1.1"
   },
   "engines": {
-    "node": ">=14.17.3"
+    "node": "^14.17.3",
+    "yarn": "^1.22.0"
   },
   "eslintConfig": {
     "root": true,
