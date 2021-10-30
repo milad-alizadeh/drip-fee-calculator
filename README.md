@@ -1,24 +1,21 @@
-# drip-fee-calculator
+# Welcome!
 
-## Project setup
-```
-yarn install
-```
+## Welcome to MyAPI
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+Welcome to MyAPI! Here you'll find all the documentation you need to get up and running with the MyAPI API.
 
-### Compiles and minifies for production
-```
-yarn build
-```
+## Want to jump right in?
 
-### Lints and fixes files
-```
-yarn lint
-```
+Feeling like an eager beaver? Jump in to the quick start docs and get making your first request:
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+{% content-ref url="quick-start.md" %}
+[quick-start.md](quick-start.md)
+{% endcontent-ref %}
+
+## Want to deep dive?
+
+Dive a little deeper and start exploring our API reference to get an idea of everything that's possible with the API:
+
+{% content-ref url="reference/api-reference.md" %}
+[api-reference.md](reference/api-reference.md)
+{% endcontent-ref %}

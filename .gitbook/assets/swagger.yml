@@ -1,0 +1,1493 @@
+---
+openapi: 3.0.1
+info:
+  title: Houston API
+  version: v1
+paths:
+  "/api/frontend/categories/{category_id}":
+    delete:
+      summary: Deletes the given category
+      tags:
+      - category
+      security:
+      - bearer: []
+      parameters:
+      - name: category_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: category deleted
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/category"
+        '404':
+          description: category not found
+          content: {}
+    put:
+      summary: Updates the given category
+      tags:
+      - category
+      security:
+      - bearer: []
+      parameters:
+      - name: category_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: category updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/category"
+        '404':
+          description: category not found
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                active:
+                  type: boolean
+  "/api/frontend/categories/{category_id}/items":
+    get:
+      summary: Gets the items for a given category
+      tags:
+      - category
+      security:
+      - bearer: []
+      parameters:
+      - name: category_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: items found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/item"
+        '404':
+          description: category not found
+          content: {}
+  "/api/frontend/categories/{category_id}/images":
+    post:
+      summary: Uploads an image to a given category
+      tags:
+      - category
+      security:
+      - bearer: []
+      parameters:
+      - name: category_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '201':
+          description: image accepted
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/category"
+        '404':
+          description: category not found
+          content: {}
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+  "/api/frontend/categories/{category_id}/dietary":
+    put:
+      summary: Updates dietary information for a given category
+      tags:
+      - category
+      security:
+      - bearer: []
+      parameters:
+      - name: category_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: dietary information updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/category"
+        '404':
+          description: category not found
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vegan:
+                  type: boolean
+                vegetarian:
+                  type: boolean
+                pescatarian:
+                  type: boolean
+                spicy:
+                  type: boolean
+                celery:
+                  type: boolean
+                gluten:
+                  type: boolean
+                crustaceans:
+                  type: boolean
+                eggs:
+                  type: boolean
+                fish:
+                  type: boolean
+                lupin:
+                  type: boolean
+                dairy:
+                  type: boolean
+                molluscs:
+                  type: boolean
+                mustard:
+                  type: boolean
+                nuts:
+                  type: boolean
+                peanuts:
+                  type: boolean
+                sesameSeeds:
+                  type: boolean
+                soya:
+                  type: boolean
+                sulphurDioxide:
+                  type: boolean
+                cereals:
+                  type: boolean
+                additionalInformation:
+                  type: string
+  "/api/frontend/items/{item_id}":
+    put:
+      summary: Updates the given item
+      tags:
+      - item
+      security:
+      - bearer: []
+      parameters:
+      - name: item_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: item updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/item"
+        '404':
+          description: item not found
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                active:
+                  type: boolean
+                subheading:
+                  type: string
+                weight:
+                  type: integer
+  "/api/frontend/items/{item_id}/portions":
+    get:
+      summary: Gets the portions for a given item
+      tags:
+      - portion
+      security:
+      - bearer: []
+      parameters:
+      - name: item_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: portions found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/portion"
+        '404':
+          description: item not found
+          content: {}
+  "/api/frontend/items/{item_id}/images":
+    post:
+      summary: Uploads an image to a given item
+      tags:
+      - item
+      security:
+      - bearer: []
+      parameters:
+      - name: item_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '201':
+          description: image accepted
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/item"
+        '404':
+          description: item not found
+          content: {}
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+  "/api/frontend/items/{item_id}/dietary":
+    put:
+      summary: Updates dietary information for a given item
+      tags:
+      - item
+      security:
+      - bearer: []
+      parameters:
+      - name: item_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: dietary information updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/item"
+        '404':
+          description: item not found
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vegan:
+                  type: boolean
+                vegetarian:
+                  type: boolean
+                pescatarian:
+                  type: boolean
+                spicy:
+                  type: boolean
+                celery:
+                  type: boolean
+                gluten:
+                  type: boolean
+                crustaceans:
+                  type: boolean
+                eggs:
+                  type: boolean
+                fish:
+                  type: boolean
+                lupin:
+                  type: boolean
+                dairy:
+                  type: boolean
+                molluscs:
+                  type: boolean
+                mustard:
+                  type: boolean
+                nuts:
+                  type: boolean
+                peanuts:
+                  type: boolean
+                sesameSeeds:
+                  type: boolean
+                soya:
+                  type: boolean
+                sulphurDioxide:
+                  type: boolean
+                cereals:
+                  type: boolean
+                additionalInformation:
+                  type: string
+  "/api/frontend/menus/{menu_id}/categories":
+    get:
+      summary: Requests the categories for a specific menu
+      tags:
+      - category
+      security:
+      - bearer: []
+      parameters:
+      - name: menu_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: menu found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/category"
+        '404':
+          description: menu not found
+          content: {}
+    post:
+      summary: Creates a category for a given menu
+      tags:
+      - category
+      security:
+      - bearer: []
+      parameters:
+      - name: menu_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '201':
+          description: category created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/category"
+        '404':
+          description: menu not found
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                active:
+                  type: boolean
+                weight:
+                  type: integer
+                parentId:
+                  type: integer
+                itemIds:
+                  type: array
+                  items:
+                    type: integer
+    put:
+      summary: Updates the order of categories for a given menu
+      tags:
+      - category
+      security:
+      - bearer: []
+      parameters:
+      - name: menu_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: categories weights updated
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/category"
+        '404':
+          description: menu not found
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                categories:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      weight:
+                        type: integer
+  "/api/frontend/menus/{menu_id}/items":
+    get:
+      summary: Requests the items for a specific menu
+      tags:
+      - item
+      security:
+      - bearer: []
+      parameters:
+      - name: menu_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: menu found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/item"
+        '404':
+          description: menu not found
+          content: {}
+    put:
+      summary: Updates the order of items for a given menu
+      tags:
+      - item
+      security:
+      - bearer: []
+      parameters:
+      - name: menu_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: categories weights updated
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/item"
+        '404':
+          description: menu not found
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      weight:
+                        type: integer
+  "/api/frontend/sites/{site_id}/modifiers":
+    get:
+      summary: Requests the modifiers for a specific menu
+      tags:
+      - modifier
+      security:
+      - bearer: []
+      parameters:
+      - name: site_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: menu found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/modifier"
+        '404':
+          description: menu not found
+          content: {}
+  "/api/frontend/menus/{menu_id}":
+    get:
+      summary: Requests a specific menu
+      tags:
+      - menu
+      security:
+      - bearer: []
+      parameters:
+      - name: menu_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: menu found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/menu"
+        '404':
+          description: menu not found
+          content: {}
+    put:
+      summary: Updates updatable attributes of menu
+      tags:
+      - menu
+      security:
+      - bearer: []
+      parameters:
+      - name: menu_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: menu updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/menu"
+        '404':
+          description: menu not found
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                active:
+                  type: boolean
+    delete:
+      summary: Deletes the enrichment menu
+      tags:
+      - menu
+      security:
+      - bearer: []
+      parameters:
+      - name: menu_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: menu deleted
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/menu"
+        '404':
+          description: menu not found
+          content: {}
+  "/api/frontend/menus/{menu_id}/issues":
+    get:
+      summary: Requests the issues for a specific menu
+      tags:
+      - menu
+      security:
+      - bearer: []
+      parameters:
+      - name: menu_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: menu found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/menu_issue"
+        '404':
+          description: menu not found
+          content: {}
+  "/api/frontend/merchant-accounts/{merchant_account_id}/sites":
+    get:
+      summary: Requests all sites for a merchant account
+      tags:
+      - site
+      security:
+      - bearer: []
+      parameters:
+      - name: merchant_account_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: sites found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/site"
+        '404':
+          description: merchant account not found
+          content: {}
+  "/api/frontend/merchant-accounts":
+    get:
+      summary: Requests all merchant accounts
+      tags:
+      - merchant_account
+      security:
+      - bearer: []
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: merchant accounts found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    externalId:
+                      type: string
+                    name:
+                      type: string
+                    active:
+                      type: boolean
+                    appUrl:
+                      type: string
+    post:
+      summary: Creates a merchant account
+      tags:
+      - merchant_account
+      security:
+      - bearer: []
+      parameters: []
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '201':
+          description: merchant account created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/merchant_account"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                look_brand_name:
+                  type: string
+                external_id:
+                  type: string
+                active:
+                  type: boolean
+                application_app_url:
+                  type: string
+                contacts_support_email:
+                  type: string
+                pos_credentials:
+                  type: string
+                service_charge:
+                  type: string
+                service_enabled:
+                  type: boolean
+                legal_entity:
+                  type: string
+                legal_primary_contact_number:
+                  type: string
+                legal_address:
+                  type: string
+                legal_company_number:
+                  type: string
+                legal_vat_number:
+                  type: string
+                legal_company_email:
+                  type: string
+                payment_public_key:
+                  type: string
+                payment_secret_key:
+                  type: string
+  "/api/frontend/options/{modifier_option_id}":
+    put:
+      summary: Updates the given modifier
+      tags:
+      - modifier_option
+      security:
+      - bearer: []
+      parameters:
+      - name: modifier_option_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: modifier option updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/modifier_option"
+        '404':
+          description: modifier not found
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                active:
+                  type: boolean
+                taxRate:
+                  type: number
+  "/api/frontend/options/{modifier_option_id}/dietary":
+    put:
+      summary: Updates dietary information for a given item
+      tags:
+      - modifier_option
+      security:
+      - bearer: []
+      parameters:
+      - name: modifier_option_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: dietary information updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/modifier_option"
+        '404':
+          description: modifier option not found
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                vegan:
+                  type: boolean
+                vegetarian:
+                  type: boolean
+                pescatarian:
+                  type: boolean
+                spicy:
+                  type: boolean
+                celery:
+                  type: boolean
+                gluten:
+                  type: boolean
+                crustaceans:
+                  type: boolean
+                eggs:
+                  type: boolean
+                fish:
+                  type: boolean
+                lupin:
+                  type: boolean
+                dairy:
+                  type: boolean
+                molluscs:
+                  type: boolean
+                mustard:
+                  type: boolean
+                nuts:
+                  type: boolean
+                peanuts:
+                  type: boolean
+                sesameSeeds:
+                  type: boolean
+                soya:
+                  type: boolean
+                sulphurDioxide:
+                  type: boolean
+                cereals:
+                  type: boolean
+                additionalInformation:
+                  type: string
+  "/api/frontend/modifiers/{modifier_id}":
+    put:
+      summary: Updates the given modifier
+      tags:
+      - modifier
+      security:
+      - bearer: []
+      parameters:
+      - name: modifier_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: modifier updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/modifier"
+        '404':
+          description: modifier not found
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                active:
+                  type: boolean
+  "/api/frontend/portions/{portion_id}":
+    put:
+      summary: Updates the given portion
+      tags:
+      - portion
+      security:
+      - bearer: []
+      parameters:
+      - name: portion_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: portion updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/portion"
+        '404':
+          description: portion not found
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                active:
+                  type: boolean
+                taxRate:
+                  type: number
+  "/api/frontend/portions/{portion_id}/modifiers":
+    get:
+      summary: Gets the modifiers for a given portion
+      tags:
+      - modifier
+      security:
+      - bearer: []
+      parameters:
+      - name: portion_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: modifiers found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/modifier"
+        '404':
+          description: item not found
+          content: {}
+  "/api/frontend/sites/{site_id}/menus":
+    get:
+      summary: Requests menus for a given site
+      tags:
+      - menu
+      security:
+      - bearer: []
+      parameters:
+      - name: site_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: sites found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/menu"
+        '404':
+          description: site not found
+          content: {}
+    post:
+      summary: Creates a menu for a given site
+      tags:
+      - menu
+      security:
+      - bearer: []
+      parameters:
+      - name: site_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '201':
+          description: menu created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/menu"
+        '404':
+          description: site not found
+          content: {}
+        '422':
+          description: invalid data
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                active:
+                  type: boolean
+                externalId:
+                  type: string
+                deliveryMode:
+                  type: string
+                  enum:
+                  - table
+                  - pickup
+                  - delivery
+  "/api/frontend/sites":
+    get:
+      summary: Requests all sites
+      tags:
+      - site
+      security:
+      - bearer: []
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: sites found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/site"
+  "/api/frontend/sites/{site_id}":
+    get:
+      summary: Requests a specific site
+      tags:
+      - site
+      security:
+      - bearer: []
+      parameters:
+      - name: site_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: site found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/site"
+        '404':
+          description: site not found
+          content: {}
+    put:
+      summary: Updates updatable attributes of site
+      tags:
+      - site
+      security:
+      - bearer: []
+      parameters:
+      - name: site_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '200':
+          description: site updated
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/site"
+        '404':
+          description: site not found
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                active:
+                  type: boolean
+                longitude:
+                  type: string
+                latitude:
+                  type: string
+  "/api/frontend/sites/{site_id}/publications":
+    post:
+      summary: Publishes the menu of a specific site
+      tags:
+      - site
+      security:
+      - bearer: []
+      parameters:
+      - name: site_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '401':
+          description: authentication failed
+          content: {}
+        '201':
+          description: Menu successfully published
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/site"
+        '404':
+          description: site not found
+          content: {}
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: houston.staging.wi5.io
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: jwt
+  schemas:
+    merchant_account:
+      type: object
+      properties:
+        id:
+          type: integer
+        uuid:
+          type: string
+        name:
+          type: string
+        active:
+          type: boolean
+        externalId:
+          type: string
+        applicationMode:
+          type: string
+          enum:
+          - pay-at-table
+          - order-and-collect
+          - order-and-pay
+          - delivery
+    site:
+      type: object
+      properties:
+        id:
+          type: integer
+        uuid:
+          type: string
+        pos_active:
+          type: boolean
+        active:
+          type: boolean
+        externalId:
+          type: string
+        name:
+          type: string
+        menuUrl:
+          type: string
+        description:
+          type: string
+        posAdapter:
+          type: string
+        posAccountUuid:
+          type: string
+        latitude:
+          type: string
+        longitude:
+          type: string
+    menu:
+      type: object
+      properties:
+        id:
+          type: integer
+        uuid:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        active:
+          type: boolean
+        externalId:
+          type: string
+        deliveryMode:
+          type: string
+          enum:
+          - table
+          - pickup
+          - delivery
+    menu_issue:
+      type: object
+      properties:
+        subject:
+          type: object
+          properties:
+            id:
+              type: integer
+            type:
+              type: string
+              enum:
+              - Enrichment::Category
+              - Item
+              - Portion
+              - Modifier
+              - ModifierOption
+              - Bundle
+              - BundleSlot
+              - BundleSlotAssignment
+              - Enrichment::Menu
+        level:
+          type: integer
+        message:
+          type: string
+        fix:
+          type: string
+    category:
+      type: object
+      properties:
+        id:
+          type: integer
+        active:
+          type: boolean
+        weight:
+          type: integer
+        uuid:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        parentId:
+          type: integer
+        menuIds:
+          type: array
+          items:
+            type: integer
+        itemIds:
+          type: array
+          items:
+            type: integer
+        image_urls:
+          type: array
+          items:
+            type: string
+        dietaryInformation:
+          "$ref": "#/components/schemas/dietary_information"
+    item:
+      type: object
+      properties:
+        id:
+          type: integer
+        active:
+          type: boolean
+        weight:
+          type: integer
+        uuid:
+          type: string
+        posActive:
+          type: boolean
+        externalId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        enrichmentCategoryIds:
+          type: array
+          items:
+            type: integer
+        portionIds:
+          type: array
+          items:
+            type: integer
+        image_urls:
+          type: array
+          items:
+            type: string
+        dietaryInformation:
+          "$ref": "#/components/schemas/dietary_information"
+    portion:
+      type: object
+      properties:
+        id:
+          type: integer
+        externalId:
+          type: string
+        active:
+          type: boolean
+        posActive:
+          type: boolean
+        uuid:
+          type: string
+        price:
+          type: integer
+        taxRate:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+    modifier:
+      type: object
+      properties:
+        id:
+          type: integer
+        uuid:
+          type: string
+        active:
+          type: boolean
+        externalId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        options:
+          type: array
+          items:
+            "$ref": "#/components/schemas/modifier_option"
+    modifier_option:
+      type: object
+      properties:
+        id:
+          type: integer
+        uuid:
+          type: string
+        active:
+          type: boolean
+        externalId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        priceAddition:
+          type: number
+        taxRate:
+          type: number
+        dietaryInformation:
+          "$ref": "#/components/schemas/dietary_information"
+    dietary_information:
+      type: object
+      properties:
+        vegan:
+          type: boolean
+        vegetarian:
+          type: boolean
+        pescatarian:
+          type: boolean
+        spicy:
+          type: boolean
+        celery:
+          type: boolean
+        gluten:
+          type: boolean
+        crustaceans:
+          type: boolean
+        eggs:
+          type: boolean
+        fish:
+          type: boolean
+        lupin:
+          type: boolean
+        dairy:
+          type: boolean
+        molluscs:
+          type: boolean
+        mustard:
+          type: boolean
+        nuts:
+          type: boolean
+        peanuts:
+          type: boolean
+        sesameSeeds:
+          type: boolean
+        soya:
+          type: boolean
+        sulphurDioxide:
+          type: boolean
+        additionalInformation:
+          type: string
